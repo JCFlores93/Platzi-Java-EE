@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,24 +24,26 @@ public class Course implements Serializable{
 	@Column(name="name")
 	private String name;
 	
-	@Column(name="theme")
+	@Column(name="themes")
 	private String theme;
 	
 	@Column(name="project")
 	private String project;
 	
+	@ManyToOne(optional=true, fetch=FetchType.EAGER)
+	@JoinColumn(name="id_teacher")
 	private Teacher teacher;
 	
 	public Course() {
 		super();
 	}
 	
-	public Course(String name, String theme, String project, Teacher teacher) {
+	public Course(String name, String theme, String project) {
 		super();
 		this.name = name;
 		this.theme = theme;
 		this.project = project;
-		this.teacher = teacher;
+		//this.teacher = teacher;
 	}
 	public Long getIdCourse() {
 		return idCourse;

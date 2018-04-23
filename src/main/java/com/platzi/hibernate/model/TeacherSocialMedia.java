@@ -5,9 +5,12 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,14 +22,22 @@ public class TeacherSocialMedia implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idTeacherSocialMedia;
 	
+	@Column(name="nickname")
+	private String nickname;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_teacher")
 	private Teacher teacher;
-	private SocialMedia socialMedia;
 	
-	public TeacherSocialMedia(Teacher teacher, SocialMedia socialMedia) {
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_social_media")
+	private SocialMedia socialMedia;	
+	
+	public TeacherSocialMedia(Teacher teacher, SocialMedia socialMedia, String nickname) {
 		super();
 		this.teacher = teacher;
 		this.socialMedia = socialMedia;
+		this.nickname = nickname;
 	}
 	public TeacherSocialMedia() {
 		super();
@@ -50,4 +61,10 @@ public class TeacherSocialMedia implements Serializable{
 	public void setSocialMedia(SocialMedia socialMedia) {
 		this.socialMedia = socialMedia;
 	}		
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 }
